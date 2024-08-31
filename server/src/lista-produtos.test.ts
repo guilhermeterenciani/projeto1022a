@@ -1,6 +1,6 @@
-import {test,expect,describe} from 'vitest'
+import {test,expect,describe,beforeAll} from 'vitest'
+import 'dotenv/config'
 import ListaProdutos from './lista-produtos';
-
 test("Deve listar os produtos do banco de dados",async()=>{
     //GIVEN   -> dado alguma coisa
     const produtoPreCadastrado = [{
@@ -13,6 +13,7 @@ test("Deve listar os produtos do banco de dados",async()=>{
     const listaProdutos = new ListaProdutos()
     //WHEN    -> Quando eu fizer algo
     const produtos = await listaProdutos.execute()
+    console.log(produtos)
     //THEN    -> Eu espero que aconteça;
     expect(produtos).toEqual(produtoPreCadastrado)
 });

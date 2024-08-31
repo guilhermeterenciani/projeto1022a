@@ -8,7 +8,7 @@ export default class InserirProdutos{
             database: process.env.DB_BANCO,
         });
         await connection.query("insert into produtos values(?,?,?,?,?)",
-        [])
+        [input.id,input.nome,input.descricao,input.preco,input.imagem])
 
         return input
     }

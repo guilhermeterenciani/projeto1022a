@@ -24,24 +24,21 @@ class ListaProdutos{
                 user: process.env.DB_USUARIO,
                 database: process.env.DB_BANCO,
             });
-            const queryPreparada = await connection.prepare("SELECT * from produtos");
-
-            const queryExecutada = await queryPreparada.execute([])
-                const [rows, filds] = queryExecutada
-                const dados = rows as ProdutoRowDataPacket[]
-                const produtosDoBanco:Output[] = []
-                for( let linha of dados){
-                    const {id,nome,descricao,preco,imagem} = {...linha}
-                    const produto = {
-                        id,
-                        nome,
-                        descricao,
-                        preco:parseFloat(preco),
-                        imagem
-                    }
-                    produtosDoBanco.push(produto)
+            const [rows, filds] = await connection.query("SELECT * from produtos");
+            const dados = rows as ProdutoRowDataPacket[]
+            const produtosDoBanco:Output[] = []
+            for( let linha of dados){
+                const {id,nome,descricao,preco,imagem} = {...linha}
+                const produto = {
+                    id,
+                    nome,
+                    descricao,
+                    preco:parseFloat(preco),
+                    imagem
                 }
-                return produtosDoBanco
+                produtosDoBanco.push(produto)
+            }
+            return produtosDoBanco
         }
         catch(e:any){
             if(e.code === 'ER_NO_SUCH_TABLE'){

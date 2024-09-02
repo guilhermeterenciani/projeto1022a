@@ -11,7 +11,6 @@ app.get("/produtos",async(req,res)=>{
 
 app.post("/produtos",async(req,res)=>{
     console.log("Alguém tentou cadastrar Produtos")
-
 })
 
 const porta = 8000

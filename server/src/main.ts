@@ -9,6 +9,10 @@ app.get("/produtos",async(req,res)=>{
     res.send(await listaProdutos.execute())
 })
 
+app.post("/produtos",async(req,res)=>{
+    
+})
+
 const porta = 8000
 app.listen(porta,()=>{
     console.log("Server Rodando")

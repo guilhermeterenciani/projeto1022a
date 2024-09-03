@@ -24,8 +24,11 @@ app.post("/produtos",async(req,res)=>{
         imagem
     }
     const inserirProduto = new InserirProdutos()
-    const produtoInserido = inserirProduto.execute(produto)
-    res.status(201).send(produtoInserido)
+    const produtoInseridoOUerro = inserirProduto.execute(produto)
+    if(produtoInseridoOUerro instanceof Error){
+        res.status(400).send(produtoInseridoOUerro.message)
+    }
+    res.status(201).send(produtoInseridoOUerro)
 
 })
 

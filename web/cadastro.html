@@ -23,12 +23,21 @@
             'Content-Type': 'application/json'
             },
             body: JSON.stringify(produto)
-        });
-        resposta
-        .then(()=>alert("Deu certo"))
-        .catch((e)=>{
-            alert("DEU ERRO OLHE O CONSOLE DO VS CODE!")
-            console.log(e)
+        })
+        .then((res)=>{
+          if(res.status ===201){
+            alert("Deu certo cadastrar no banco")
+          }
+          else{
+            res.json
+            .then(mensagem=>{
+              alert(JSON.parse(mensagem));
+            })
+            
+          }
+        })
+        .catch(()=>{
+          alert("Servidor não respondeu")
         })
     </script>
   </body>

@@ -24,12 +24,14 @@ app.post("/produtos",async(req,res)=>{
         imagem
     }
     const inserirProduto = new InserirProdutos()
-    const produtoInseridoOUerro = await inserirProduto.execute(produto)
-    if(produtoInseridoOUerro instanceof Error){
-        console.log(produtoInseridoOUerro.message)
-        res.status(200).send(JSON.stringify({mensagem:produtoInseridoOUerro.message}))
-    }else{
-        res.status(201).send(produtoInseridoOUerro)
+    try{
+        const produtoInserido = await inserirProduto.execute(produto)
+        res.status(201).send(produtoInserido)
+    }
+    catch(e:any){
+        if(e.message === "ER_DUP_ENTRY"){
+            res.status(409).send("Produto já cadastrado")
+        }
     }
 
 })

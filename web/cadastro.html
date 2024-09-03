@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastrar Produtos</title>
-  </head>
-  <body>
-    <a href="index.html">Listar Produtos</a>
-    <h1>Cadastrar Produtos</h1>
 
-    <script>
-        const produto = {
-            id:2,
-            nome:"X6 PRO",
-            descricao:"Celular até R$:2000.00",
-            preco:2000.00,
-            imagem:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiXtZbQ3CbGKGUlFrh-uUizXSUaJmtDEZ_-w&s"
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastrar Produtos</title>
+</head>
+
+<body>
+  <a href="index.html">Listar Produtos</a>
+  <h1>Cadastrar Produtos</h1>
+
+  <script>
+    const produto = {
+      id: 2,
+      nome: "X6 PRO",
+      descricao: "Celular até R$:2000.00",
+      preco: 2000.00,
+      imagem: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiXtZbQ3CbGKGUlFrh-uUizXSUaJmtDEZ_-w&s"
+    }
+    const resposta = fetch('http://localhost:8000/produtos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(produto)
+    })
+    resposta
+      .then((res) => {
+        if (res.status === 201) {
+          alert("Deu certo cadastrar no banco")
         }
-        const resposta = fetch('http://localhost:8000/produtos', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(produto)
-        })
-        .then((res)=>{
-          if(res.status ===201){
-            alert("Deu certo cadastrar no banco")
-          }
-          else{
-            res.json
-            .then(mensagem=>{
-              alert(JSON.parse(mensagem));
-            })
-            
-          }
-        })
-        .catch(()=>{
-          alert("Servidor não respondeu")
-        })
-    </script>
-  </body>
+        else {
+          res.text()
+          .then((res) => {
+            alert(res)
+          })
+        }
+      })
+      .catch(() => {
+        alert("Servidor não respondeu")
+      })
+  </script>
+</body>
+
 </html>

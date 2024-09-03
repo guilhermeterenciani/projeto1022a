@@ -1,7 +1,7 @@
 import mysql from 'mysql2/promise'
 import 'dotenv/config'
 export default class InserirProdutos{
-    async execute(input:Input):Promise<Output|Error>{ 
+    async execute(input:Input):Promise<Output>{ 
         try{
             const connection = await mysql.createConnection({
                 host: process.env.DB_HOST,
@@ -13,12 +13,8 @@ export default class InserirProdutos{
             return input
         }
         catch(e:any){
-            if(e.code === 'ER_DUP_ENTRY'){
-                return new Error("Erro: Chave Primária Duplicada")
-            }else{
-                console.log(e)
-                return new Error("Erro: Desconhecido")
-            }
+            console.log(e.code)
+            throw new Error(e.code)
         }
             
     } 

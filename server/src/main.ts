@@ -31,6 +31,9 @@ app.post("/produtos",async(req,res)=>{
     catch(e:any){
         if(e.message === "ER_DUP_ENTRY"){
             res.status(409).send("Produto já cadastrado")
+        }else{
+            console.log(e)
+            res.status(409).send("Erro Desconhecido: Olhe o TERMINAL DO VSCode")
         }
     }
 

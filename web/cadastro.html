@@ -36,62 +36,69 @@
     <div class="formulario">
       <div class="conteudo-input">
         <label for="Id">Id</label>
-        <input type="text" placeholder="Id" />
+        <input id="id" type="text" placeholder="Id" />
       </div>
 
       <div class="conteudo-input">
         <label for="Nome">Nome</label>
-        <input type="text" placeholder="Nome" />
+        <input id="nome" type="text" placeholder="Nome" />
       </div>
 
       <div class="conteudo-input">
         <label for="Descricao">Descrição</label>
-        <input type="text" placeholder="Descrição" />
+        <input id="descricao" type="text" placeholder="Descrição" />
       </div>
 
       <div class="conteudo-input">
         <label for="Preco">Preço</label>
-        <input type="number" placeholder="Preço" />
+        <input id="preco" type="number" placeholder="Preço" />
       </div>
 
       <div class="conteudo-input">
         <label for="URL">URL Imagem</label>
-        <input type="text" placeholder="URL Imagem" />
+        <input id="url" type="text" placeholder="URL Imagem" />
       </div>
       <div class="conteudo-input">
-        <input type="submit" value="Cadastrar" />
+        <input id="botao" type="submit" value="Cadastrar" />
       </div>
     </div>
 
     <script>
-      const produto = {
-        id: 2,
-        nome: "X6 PRO",
-        descricao: "Celular até R$:2000.00",
-        preco: 2000.0,
-        imagem:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiXtZbQ3CbGKGUlFrh-uUizXSUaJmtDEZ_-w&s",
-      };
-      const resposta = fetch("http://localhost:8000/produtos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(produto),
-      });
-      resposta
-        .then((res) => {
-          if (res.status === 201) {
-            alert("Deu certo cadastrar no banco");
-          } else {
-            res.text().then((res) => {
-              alert(res);
-            });
-          }
-        })
-        .catch(() => {
-          alert("Servidor não respondeu");
+      const btn_cadastro = document.getElementById("botao");
+      btn_cadastro.addEventListener("click", () => {
+        const id = document.getElementById("id").value
+        const nome = document.getElementById("nome").value
+        const descricao = document.getElementById("descricao").value
+        const preco = document.getElementById("preco").value
+        const url = document.getElementById("url").value
+        const produto = {
+          id: id,
+          nome: nome,
+          descricao: descricao,
+          preco: preco,
+          imagem:url
+        };
+        const resposta = fetch("http://localhost:8000/produtos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(produto),
         });
+        resposta
+          .then((res) => {
+            if (res.status === 201) {
+              alert("Deu certo cadastrar no banco");
+            } else {
+              res.text().then((res) => {
+                alert(res);
+              });
+            }
+          })
+          .catch(() => {
+            alert("Servidor não respondeu");
+          });
+      });
     </script>
   </body>
 </html>
